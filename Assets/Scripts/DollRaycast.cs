@@ -73,7 +73,7 @@ public class DollRaycast : MonoBehaviour
                     PlayerInSight = true;
                     if (playerMovment.isMoving == true)
                     {
-                        Debug.Log("Player caught");
+                        Destroy(player);
                     }
                 }
                 else

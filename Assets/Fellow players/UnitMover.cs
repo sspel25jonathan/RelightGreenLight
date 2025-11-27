@@ -15,6 +15,7 @@ public class UnitMover : MonoBehaviour
     public int speed;
     private float unitVelocity;
     private float timer;
+    private bool surived = false;
 
     void Start()
     {
@@ -60,6 +61,7 @@ public class UnitMover : MonoBehaviour
                     timer = -timer - Time.time;
                 }
                 rb.linearVelocity = Vector2.zero;
+                Destroy(this);
                 yield return null;
             }
             else
@@ -86,18 +88,7 @@ public class UnitMover : MonoBehaviour
         }
     }
 
-    private IEnumerator GlobalDeath()
-    {
-        while (true)
-        {
-            
-        if (canvasCountDown.globaTimmer == 0)
-        {
-            Destroy(this.gameObject);
-        }
-        yield return new WaitForSeconds(0);
-        }
-    }
+    
 
     private IEnumerator checkingunitVecloity()
     {
@@ -123,4 +114,29 @@ public class UnitMover : MonoBehaviour
         yield return new WaitForSeconds(1);
         StopCoroutine(AddingForce());
     }
+    private IEnumerator GlobalDeath()
+    {
+        Debug.Log("wow");
+        while (true)
+        {
+
+            if (canvasCountDown.globaTimmer == 0 && surived == true)
+            {
+
+            } else if(canvasCountDown.globaTimmer == 0) {
+                                Destroy(this.gameObject);
+            }
+            yield return null;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.tag == "line")
+        {
+   
+            surived = true;
+        }
+    }
+    
 }

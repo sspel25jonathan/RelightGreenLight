@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlayerMovment : MonoBehaviour
     public Vector2 movement;
     CanvasCountDown canvasCountDown;
 
+    private bool surived = false;
     private float playerVelocity;
     public bool isMoving;
 
@@ -22,8 +24,8 @@ public class PlayerMovment : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
-        
+
+
     }
 
     // Update is called once per frame
@@ -59,18 +61,29 @@ public class PlayerMovment : MonoBehaviour
 
     private IEnumerator GlobalDeath()
     {
-        Debug.Log("wow");
+
         while (true)
         {
 
-            if (canvasCountDown.globaTimmer == 0)
+            if (canvasCountDown.globaTimmer == 0 && surived == true)
             {
-                Destroy(this.gameObject);
+
+            } else if(canvasCountDown.globaTimmer == 0) {
+                                Destroy(this.gameObject);
             }
             yield return null;
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("nice");
+        if (collision.gameObject.tag == "line")
+        {
+            Debug.Log("real");
+            surived = true;
+        }
+    }
 
 
 

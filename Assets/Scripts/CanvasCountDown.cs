@@ -30,7 +30,6 @@ public class CanvasCountDown : MonoBehaviour
         minutes = -Time.deltaTime;
 
         GlobalCountdown.text = globaTimmer.ToString();
-        Debug.Log(globaTimmer);
 
     }
 
